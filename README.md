@@ -1,2 +1,2 @@
 # tiendadj
-Proyecto de tienda profundizando conceptos de rest framework
+Proyecto Django para la sección de servicios Rest DRF en curso profesional 
