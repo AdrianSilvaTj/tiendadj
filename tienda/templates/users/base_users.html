@@ -7,5 +7,70 @@
 {% endblock css %}
 
 {% block js %}
+<script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-auth-compat.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+   const firebaseApp = firebase.initializeApp({
+    apiKey: "AIzaSyDEn81v6WC-8OZmV-3xoaUheV_osBFAo2Q",
+    authDomain: "django-pro-7fd43.firebaseapp.com",
+    projectId: "django-pro-7fd43",
+    storageBucket: "django-pro-7fd43.appspot.com",
+    messagingSenderId: "28893080300",
+    appId: "1:28893080300:web:652889ea69fa00ae9193c9"
+  });
+   //const db = firebaseApp.firestore();
+   //const auth = firebaseApp.auth();
+</script>
+<!-- Insert this script at the bottom of the HTML, but before you use any Firebase services -->
 
+<script>
+    function loginGoogle(){
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithRedirect(provider);
+    }
+    
+    firebase.auth()
+        .getRedirectResult()
+        .then((result) => {
+            if (result.credential) {
+            /** @type {firebase.auth.OAuthCredential} */
+            var credential = result.credential;
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = credential.idToken;            
+            }
+            // The signed-in user info.
+            var user = result.user;
+            // IdP data available in result.additionalUserInfo.profile.
+            // Recuperar el id token del usuario
+            user.getIdToken().then(
+                function(idToken){
+                    console.log("======== Este es el Token ===========")
+                    console.log(idToken)
+                    // Pasar el token con axios al backend
+                    var data = {'token_id':idToken }
+                    axios.post('/api/google_login/', data).then(
+                        function(response) {
+                            console.log(response)
+                        }
+                    )
+                }).catch(function(error) {
+                    console.log(error)
+                }
+            )
+            
+        }).catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+            console.log(error)
+        });
+</script>
 {% endblock js %}
+

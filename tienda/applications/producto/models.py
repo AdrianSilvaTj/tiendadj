@@ -62,10 +62,10 @@ class Product(TimeStampedModel):
         'imagen principal',
         upload_to='producto',
     ) # imagen principal del producto
-    image1 = models.ImageField('Imagen 1', blank=True, null=True)
-    image2 = models.ImageField('Imagen 2', blank=True, null=True)
-    image3 = models.ImageField('Imagen 3', blank=True, null=True)
-    image4 = models.ImageField('Imagen 4', blank=True, null=True)
+    image1 = models.ImageField('Imagen 1',upload_to='producto', blank=True, null=True)
+    image2 = models.ImageField('Imagen 2',upload_to='producto', blank=True, null=True)
+    image3 = models.ImageField('Imagen 3',upload_to='producto', blank=True, null=True)
+    image4 = models.ImageField('Imagen 4',upload_to='producto', blank=True, null=True)
     colors = models.ManyToManyField(Colors)
     video = models.URLField('unboxin', blank=True, null=True)
     stok = models.PositiveIntegerField('Stok', default=0)

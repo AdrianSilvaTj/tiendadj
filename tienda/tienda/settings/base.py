@@ -46,6 +46,7 @@ LOCAL_APPS = (
 
 THIRD_PARTY_APPS = (
     'rest_framework',
+    'rest_framework.authtoken',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -113,3 +114,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Definir tipo de dato predeterminado para la creación de claves primarias de la base de datos
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
