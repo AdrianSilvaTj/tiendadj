@@ -6,6 +6,7 @@ from model_utils.models import TimeStampedModel
 
 # local apps
 from applications.producto.models import Product
+from .managers import SailDetailManager
 
 
 class Sale(TimeStampedModel):
@@ -77,8 +78,6 @@ class Sale(TimeStampedModel):
     def __str__(self):
         return 'Nº [' + str(self.id) + '] - ' + str(self.date_sale)
 
-
-
 class SaleDetail(TimeStampedModel):
     """Modelo que representa a una venta en detalle"""
 
@@ -104,6 +103,7 @@ class SaleDetail(TimeStampedModel):
     )
     anulate = models.BooleanField(default=False)
     #
+    objects = SailDetailManager()
 
     class Meta:
         verbose_name = 'Detalle Venta'

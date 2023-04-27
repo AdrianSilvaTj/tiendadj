@@ -5,14 +5,42 @@ from rest_framework.response import Response
 from firebase_admin import auth
 
 from django.shortcuts import render
-
-from django.views.generic import TemplateView 
+from django.urls import reverse_lazy, reverse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView, FormView, View
 
 from .serializers import LoginSocialSerializer
 from .models import User
 
 class LoginUser(TemplateView):
     template_name = 'users/login.html'
+    
+# class LoginUser(FormView):
+#     template_name = 'users/login.html'
+#     form_class = LoginForm
+#     success_url = reverse_lazy('home_app:index')
+
+#     def form_valid(self, form):
+#         user = authenticate(
+#             email=form.cleaned_data['email'],
+#             password=form.cleaned_data['password']
+#         )
+#         login(self.request, user)
+#         return super(LoginUser, self).form_valid(form)
+
+
+class LogoutView(View):
+
+    def get(self, request, *args, **kargs):
+        logout(request)
+        print ("********************Logout")
+        return HttpResponseRedirect(
+            reverse(
+                'user_app:login'
+            )
+        )
     
 class GoogleLoginApiView(APIView):
     
@@ -46,6 +74,7 @@ class GoogleLoginApiView(APIView):
             token = Token.objects.create(user=user_ver)
         else:
             token = Token.objects.get(user=user_ver)
+        print("================",created)
         # Usuario que se devolvera al frontend
         user_get = {
             'id' : user_ver.id,

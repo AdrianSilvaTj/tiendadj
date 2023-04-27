@@ -4,10 +4,12 @@
 {% block content %}    
     <div style="padding: 2em;">
         <h1>Ingrese con su cuenta de google:</h1>
+        <h3>Usuario: {{user}}</h3>
         <div>
             <button  style="padding: 1em; background: #118822; color: white;" onclick="loginGoogle()">
                 Ingrese con Gmail
             </button>
+            <a href="{% url 'user_app:logout' %}">Salir</a>
         </div>
     </div>
 
