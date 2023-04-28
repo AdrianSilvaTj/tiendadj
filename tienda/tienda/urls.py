@@ -21,4 +21,7 @@ urlpatterns = [
     re_path('', include('applications.users.urls')),
     re_path('', include('applications.producto.urls')),
     re_path('', include('applications.venta.urls')),
+    # incluimos las rutas de routers.py
+    re_path('', include('applications.producto.routers')),
+    re_path('', include('applications.venta.routers')),
 ]

@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, pagination
 
 from .models import Product, Colors
 
@@ -31,3 +31,12 @@ class ProductSerializer(serializers.ModelSerializer):
             'num_sales',
             'user_created',            
         )
+
+class PaginationSerializer(pagination.PageNumberPagination):
+    page_size = 5
+    max_page_size = 50
+
+class ProductSerializerViewset(serializers.ModelSerializer):    
+    class Meta:
+        model = Product
+        fields = ('__all__')
