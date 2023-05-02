@@ -80,14 +80,19 @@ class SaleProcessSerializer2(serializers.Serializer):
     products = ArrayIntegerSerializer()
     counts = ArrayIntegerSerializer()
 
-    
+    # def validate(self, data):
+    #     if data['type_payment']
     
     def validate_type_invoce(self, value):
-        print("******************")
-        print(Sale.validate_)
-        print (value)
-        if value not in Sale.TIPO_INVOCE :
-            raise serializers.ValidationError('Ingrese un valor correcto')
-        return value
+        for ch in Sale.TIPO_INVOCE:
+            if value == ch[0]:
+                return value         
+        raise serializers.ValidationError('Ingrese un valor correcto')
+    
+    def validate_type_payment(self, value):
+        for ch in Sale.TIPO_PAYMENT:
+            if value == ch[0]:
+                return value         
+        raise serializers.ValidationError('Ingrese un valor correcto')
     
     
